@@ -1,11 +1,14 @@
 {
   "version": 2,
-  "dgSpecHash": "kWyaw6cyn2HCWCgqITZ8Iy4jRKrcZmEcFdZw4OpexyYDJndrMnZeCfWfSXT+ViCR0Uxdw4Bz3yAFCxtd5Cr/+w==",
+  "dgSpecHash": "N5VwTOnxkUcXxSM9ef9EaGAnAfWH08zyLu6o2Uk2WfgnlHad49kc2nZ+z1kCDznNbHkrtCGy2oYkMTassCO5Aw==",
   "success": true,
   "projectFilePath": "C:\\Users\\Stjepan\\Desktop\\POS-Kasa\\POS-Blagajna-Backend\\POS-Blagajna-Backend.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\Stjepan\\.nuget\\packages\\automapper\\12.0.1\\automapper.12.0.1.nupkg.sha512",
+    "C:\\Users\\Stjepan\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\12.0.1\\automapper.extensions.microsoft.dependencyinjection.12.0.1.nupkg.sha512",
     "C:\\Users\\Stjepan\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
     "C:\\Users\\Stjepan\\.nuget\\packages\\microsoft.aspnetcore.openapi\\7.0.0\\microsoft.aspnetcore.openapi.7.0.0.nupkg.sha512",
+    "C:\\Users\\Stjepan\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",
     "C:\\Users\\Stjepan\\.nuget\\packages\\microsoft.entityframeworkcore\\7.0.8\\microsoft.entityframeworkcore.7.0.8.nupkg.sha512",
     "C:\\Users\\Stjepan\\.nuget\\packages\\microsoft.entityframeworkcore.abstractions\\7.0.8\\microsoft.entityframeworkcore.abstractions.7.0.8.nupkg.sha512",
     "C:\\Users\\Stjepan\\.nuget\\packages\\microsoft.entityframeworkcore.analyzers\\7.0.8\\microsoft.entityframeworkcore.analyzers.7.0.8.nupkg.sha512",

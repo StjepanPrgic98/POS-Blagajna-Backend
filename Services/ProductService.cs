@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using POS_Blagajna_Backend.DTOs.ProductDTOs;
 using POS_Blagajna_Backend.Entities;
 using POS_Blagajna_Backend.Interfaces.RepositoryInterfaces;
@@ -12,21 +13,19 @@ namespace POS_Blagajna_Backend.Services
     public class ProductService : IProductService
     {
         private readonly IProductRepository _productRepository;
-        public ProductService(IProductRepository productRepository)
+        private readonly IMapper _mapper;
+        public ProductService(IProductRepository productRepository, IMapper mapper)
         {
+            _mapper = mapper;
             _productRepository = productRepository;     
         }
 
         public async Task<bool> CreateProduct(ProductDTO productDTO)
         {
-            Product newProduct = new Product
-            {
-                Name = productDTO.Name,
-                UnitOfMeasure = productDTO.UnitOfMeasure,
-                Price = productDTO.Price,
-                StorageQuantity = productDTO.StorageQuantity
-            };
+            Product newProduct = new Product();
 
+            _mapper.Map(productDTO, newProduct);
+            
             return await _productRepository.CreateProduct(newProduct);
         }
 
@@ -45,10 +44,7 @@ namespace POS_Blagajna_Backend.Services
         {
             Product productToUpdate = await _productRepository.GetProductById(productDTO.Id);
 
-            productToUpdate.Name = productDTO.Name;
-            productToUpdate.UnitOfMeasure = productDTO.UnitOfMeasure;
-            productToUpdate.Price = productDTO.Price;
-            productToUpdate.StorageQuantity = productDTO.StorageQuantity;
+            _mapper.Map(productDTO, productToUpdate);
 
             return await _productRepository.UpdateProduct(productToUpdate);
         }
