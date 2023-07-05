@@ -28,6 +28,9 @@ builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
 builder.Services.AddScoped<ICustomerService, CustomerService>();
 
+builder.Services.AddScoped<IReceiptHeaderRepository, ReceiptHeaderRepository>();
+builder.Services.AddScoped<IReceiptHeaderService, ReceiptHeaderService>();
+
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 var app = builder.Build();

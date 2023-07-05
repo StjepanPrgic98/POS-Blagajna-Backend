@@ -13,5 +13,6 @@ namespace POS_Blagajna_Backend.Data
         public DbSet<Employee> Employees { get; set; }
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Product> Products { get; set; }
+        public DbSet<ReceiptHeader> ReceiptHeaders { get; set; }
     }
 }

@@ -38,5 +38,10 @@ namespace POS_Blagajna_Backend.Data.Repositories
         {
             return await _context.Customers.FirstOrDefaultAsync(x => x.Id == id);
         }
+
+        public async Task<Customer> GetCustomerByName(string customerName)
+        {
+            return await _context.Customers.FirstOrDefaultAsync(x => x.Name == customerName);
+        }
     }
 }
