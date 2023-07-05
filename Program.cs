@@ -1,5 +1,9 @@
 using Microsoft.EntityFrameworkCore;
 using POS_Blagajna_Backend.Data;
+using POS_Blagajna_Backend.Data.Repositories;
+using POS_Blagajna_Backend.Interfaces.RepositoryInterfaces;
+using POS_Blagajna_Backend.Interfaces.ServiceInterfaces;
+using POS_Blagajna_Backend.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,6 +19,9 @@ builder.Services.AddDbContext<DataContext>(opt =>
     opt.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
 
+builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
+builder.Services.AddScoped<IEmployeeService, EmployeeService>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -24,7 +31,6 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
