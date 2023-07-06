@@ -14,5 +14,6 @@ namespace POS_Blagajna_Backend.Interfaces.RepositoryInterfaces
         Task<bool> DeleteProduct(Product product);
 
         Task<Product> GetProductById(int id);
+        Task<Product> GetProductByName(string name);
     }
 }

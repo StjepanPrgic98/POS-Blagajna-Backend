@@ -31,6 +31,9 @@ builder.Services.AddScoped<ICustomerService, CustomerService>();
 builder.Services.AddScoped<IReceiptRepository, ReceiptRepository>();
 builder.Services.AddScoped<IReceiptService, ReceiptService>();
 
+builder.Services.AddScoped<IReceiptItemRepository, ReceiptItemRepository>();
+builder.Services.AddScoped<IReceiptItemService, ReceiptItemService>();
+
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 var app = builder.Build();

@@ -16,19 +16,19 @@ namespace POS_Blagajna_Backend.Data.Repositories
 
         public async Task<bool> CreateReceipt(Receipt receipt)
         {
-            _context.ReceiptHeaders.Add(receipt);
+            _context.Receipts.Add(receipt);
             return await _context.SaveChangesAsync() > 0;
         }
 
         public async Task<bool> DeleteReceipt(Receipt receipt)
         {
-            _context.ReceiptHeaders.Remove(receipt);
+            _context.Receipts.Remove(receipt);
             return await _context.SaveChangesAsync() > 0;
         }
 
         public async Task<IEnumerable<Receipt>> GetAllReceipts()
         {
-            return await _context.ReceiptHeaders
+            return await _context.Receipts
             .Include(x => x.Customer)
             .ToListAsync();
         }
@@ -36,14 +36,14 @@ namespace POS_Blagajna_Backend.Data.Repositories
 
         public async Task<bool> UpdateReceipt(Receipt receipt)
         {
-            _context.ReceiptHeaders.Update(receipt);
+            _context.Receipts.Update(receipt);
             return await _context.SaveChangesAsync() > 0;
         }
 
 
         public async Task<Receipt> GetReceiptById(int id)
         {
-            return await _context.ReceiptHeaders.FirstOrDefaultAsync(x => x.Id == id);
+            return await _context.Receipts.FirstOrDefaultAsync(x => x.Id == id);
         }
     }
 }

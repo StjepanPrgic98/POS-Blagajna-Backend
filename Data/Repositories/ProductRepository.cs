@@ -42,5 +42,10 @@ namespace POS_Blagajna_Backend.Data.Repositories
         {
             return await _context.Products.FirstOrDefaultAsync(x => x.Id == id);
         }
+
+        public async Task<Product> GetProductByName(string name)
+        {
+            return await _context.Products.FirstOrDefaultAsync(x => x.Name == name);
+        }
     }
 }

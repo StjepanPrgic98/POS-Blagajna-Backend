@@ -2,6 +2,7 @@ using AutoMapper;
 using POS_Blagajna_Backend.DTOs.CustomerDTOs;
 using POS_Blagajna_Backend.DTOs.ProductDTOs;
 using POS_Blagajna_Backend.DTOs.ReceiptHeaderDTOs;
+using POS_Blagajna_Backend.DTOs.ReceiptItemDTOs;
 using POS_Blagajna_Backend.Entities;
 
 namespace POS_Blagajna_Backend.Helpers
@@ -18,6 +19,9 @@ namespace POS_Blagajna_Backend.Helpers
 
             CreateMap<Receipt, ReceiptDTO>();
             CreateMap<ReceiptDTO, Receipt>();
+
+            CreateMap<ReceiptItem, ReceiptItemDTO>();
+            CreateMap<ReceiptItemDTO, ReceiptItem>();
         }
     }
 }
