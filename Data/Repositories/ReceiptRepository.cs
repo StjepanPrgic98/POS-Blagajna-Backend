@@ -30,6 +30,7 @@ namespace POS_Blagajna_Backend.Data.Repositories
         {
             return await _context.Receipts
             .Include(x => x.Customer)
+            .Include(x => x.ReceiptItems).ThenInclude(x => x.Product)
             .ToListAsync();
         }
 

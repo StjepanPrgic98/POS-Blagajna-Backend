@@ -44,6 +44,19 @@ namespace POS_Blagajna_Backend.Controllers
             }
         }
 
+        [HttpPost("createMultiple")]
+        public async Task<ActionResult<List<ReceiptItem>>> CreateMultipleReceiptItems(List<ReceiptItemDTO> receiptItemDTOs)
+        {
+            try
+            {
+                return await _receiptItemService.CreateMultipleReceiptItems(receiptItemDTOs);
+            }
+            catch(Exception ex)
+            {
+                return BadRequest($"Could not create multiple receipt items! \n {ex}");
+            }
+        }
+
         [HttpPut("update")]
         public async Task<ActionResult<bool>> UpdateReceiptItem(ReceiptItemDTO receiptItemDTO)
         {

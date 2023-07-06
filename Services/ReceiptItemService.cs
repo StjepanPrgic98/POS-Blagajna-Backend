@@ -22,6 +22,7 @@ namespace POS_Blagajna_Backend.Services
             _receiptItemsRepository = receiptItemsRepository;       
         }
 
+
         public async Task<bool> CreateReceiptItem(ReceiptItemDTO receiptItemDTO)
         {
 
@@ -45,6 +46,37 @@ namespace POS_Blagajna_Backend.Services
             }
 
             return await _receiptItemsRepository.CreateReceiptItem(newReceiptItem);
+        }
+
+        public async Task<List<ReceiptItem>> CreateMultipleReceiptItems(List<ReceiptItemDTO> receiptItemDTOs)
+        {
+            List<ReceiptItem> newReceiptItems = new List<ReceiptItem>();
+
+            foreach (var receiptItemDTO in receiptItemDTOs)
+            {
+                Product product = await _productRepository.GetProductByName(receiptItemDTO.ProductName);
+
+                ReceiptItem newReceiptItem = new ReceiptItem();
+                _mapper.Map(receiptItemDTO, newReceiptItem);
+                
+                newReceiptItem.Product = product;
+                newReceiptItem.Price = newReceiptItem.Product.Price * newReceiptItem.Quantity;
+
+                if(newReceiptItem.DiscountPercentage == 0)
+                {
+                    newReceiptItem.DiscountAmmount = 0;
+                    newReceiptItem.TotalPrice = newReceiptItem.Price;
+                }
+                else
+                {
+                    newReceiptItem.DiscountAmmount = (newReceiptItem.Price * newReceiptItem.DiscountPercentage) / 100;
+                    newReceiptItem.TotalPrice = newReceiptItem.Price - newReceiptItem.DiscountAmmount;
+                }
+                
+                newReceiptItems.Add(newReceiptItem);
+            }
+
+            return await _receiptItemsRepository.CreateMultipleReceiptItems(newReceiptItems);
         }
 
         public async Task<bool> DeleteReceiptItem(int id)

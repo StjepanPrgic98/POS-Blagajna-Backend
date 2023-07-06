@@ -11,6 +11,7 @@ namespace POS_Blagajna_Backend.Interfaces.ServiceInterfaces
     {
         Task<IEnumerable<ReceiptItem>> GetAllReceiptItems();
         Task<bool> CreateReceiptItem(ReceiptItemDTO receiptItemDTO);
+        Task<List<ReceiptItem>> CreateMultipleReceiptItems(List<ReceiptItemDTO> receiptItemDTOs);
         Task<bool> UpdateReceiptItem(ReceiptItemDTO receiptItemDTO);
         Task<bool> DeleteReceiptItem(int id);
     }

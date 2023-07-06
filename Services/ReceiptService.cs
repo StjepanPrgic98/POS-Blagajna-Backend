@@ -15,15 +15,19 @@ namespace POS_Blagajna_Backend.Services
         private readonly IReceiptRepository _receiptRepository;
         private readonly IMapper _mapper;
         private readonly ICustomerRepository _customerRepository;
-        public ReceiptService(IReceiptRepository receiptRepository, IMapper mapper, ICustomerRepository customerRepository)
+        private readonly IReceiptItemService _receiptItemService;
+        public ReceiptService(IReceiptRepository receiptRepository, IMapper mapper, ICustomerRepository customerRepository, IReceiptItemService receiptItemService)
         {
+            _receiptRepository = receiptRepository;
+            _receiptItemService = receiptItemService;
             _customerRepository = customerRepository;
-            _mapper = mapper;
-            _receiptRepository = receiptRepository;        
+            _mapper = mapper;     
         }
 
         public async Task<bool> CreateReceipt(ReceiptDTO receiptDTO)
         {
+
+            List<ReceiptItem> receiptItems = await _receiptItemService.CreateMultipleReceiptItems(receiptDTO.ReceiptItems);
             
             Receipt newReceipt = new Receipt();
 
@@ -39,6 +43,8 @@ namespace POS_Blagajna_Backend.Services
                 Customer customer = new Customer();
                 newReceipt.Customer = customer;
             }
+
+            newReceipt.ReceiptItems = receiptItems;
 
             return await _receiptRepository.CreateReceipt(newReceipt);         
         }

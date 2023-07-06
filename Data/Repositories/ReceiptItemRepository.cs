@@ -20,6 +20,14 @@ namespace POS_Blagajna_Backend.Data.Repositories
             return await _context.SaveChangesAsync() > 0;
         }
 
+        public async Task<List<ReceiptItem>> CreateMultipleReceiptItems(List<ReceiptItem> receiptItems)
+        {
+            _context.ReceiptItems.AddRange(receiptItems);
+            await _context.SaveChangesAsync();
+
+            return receiptItems;
+        }
+
         public async Task<bool> DeleteReceiptItem(ReceiptItem receiptItem)
         {
             _context.ReceiptItems.Remove(receiptItem);
@@ -44,5 +52,6 @@ namespace POS_Blagajna_Backend.Data.Repositories
         {
             return await _context.ReceiptItems.FirstOrDefaultAsync(x => x.Id == id);
         }
+
     }
 }
