@@ -8,25 +8,25 @@ using POS_Blagajna_Backend.Interfaces.RepositoryInterfaces;
 
 namespace POS_Blagajna_Backend.Data.Repositories
 {
-    public class ReceiptHeaderRepository : BaseRepository, IReceiptHeaderRepository
+    public class ReceiptRepository : BaseRepository, IReceiptRepository
     {
-        public ReceiptHeaderRepository(DataContext context) : base(context)
+        public ReceiptRepository(DataContext context) : base(context)
         {
         }
 
-        public async Task<bool> CreateReceiptHeader(ReceiptHeader receiptHeader)
+        public async Task<bool> CreateReceipt(Receipt receipt)
         {
-            _context.ReceiptHeaders.Add(receiptHeader);
+            _context.ReceiptHeaders.Add(receipt);
             return await _context.SaveChangesAsync() > 0;
         }
 
-        public async Task<bool> DeleteReceiptHeader(ReceiptHeader receiptHeader)
+        public async Task<bool> DeleteReceipt(Receipt receipt)
         {
-            _context.ReceiptHeaders.Remove(receiptHeader);
+            _context.ReceiptHeaders.Remove(receipt);
             return await _context.SaveChangesAsync() > 0;
         }
 
-        public async Task<IEnumerable<ReceiptHeader>> GetAllReceiptHeaders()
+        public async Task<IEnumerable<Receipt>> GetAllReceipts()
         {
             return await _context.ReceiptHeaders
             .Include(x => x.Customer)
@@ -34,14 +34,14 @@ namespace POS_Blagajna_Backend.Data.Repositories
         }
 
 
-        public async Task<bool> UpdateReceiptHeader(ReceiptHeader receiptHeader)
+        public async Task<bool> UpdateReceipt(Receipt receipt)
         {
-            _context.ReceiptHeaders.Update(receiptHeader);
+            _context.ReceiptHeaders.Update(receipt);
             return await _context.SaveChangesAsync() > 0;
         }
 
 
-        public async Task<ReceiptHeader> GetReceiptHeaderById(int id)
+        public async Task<Receipt> GetReceiptById(int id)
         {
             return await _context.ReceiptHeaders.FirstOrDefaultAsync(x => x.Id == id);
         }

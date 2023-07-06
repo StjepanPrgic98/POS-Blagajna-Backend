@@ -10,68 +10,68 @@ using POS_Blagajna_Backend.Interfaces.ServiceInterfaces;
 
 namespace POS_Blagajna_Backend.Services
 {
-    public class ReceiptHeaderService : IReceiptHeaderService
+    public class ReceiptService : IReceiptService
     {
-        private readonly IReceiptHeaderRepository _receiptHeaderRepository;
+        private readonly IReceiptRepository _receiptRepository;
         private readonly IMapper _mapper;
         private readonly ICustomerRepository _customerRepository;
-        public ReceiptHeaderService(IReceiptHeaderRepository receiptHeaderRepository, IMapper mapper, ICustomerRepository customerRepository)
+        public ReceiptService(IReceiptRepository receiptRepository, IMapper mapper, ICustomerRepository customerRepository)
         {
             _customerRepository = customerRepository;
             _mapper = mapper;
-            _receiptHeaderRepository = receiptHeaderRepository;        
+            _receiptRepository = receiptRepository;        
         }
 
-        public async Task<bool> CreateReceiptHeader(ReceiptHeaderDTO receiptHeaderDTO)
+        public async Task<bool> CreateReceipt(ReceiptDTO receiptDTO)
         {
             
-            ReceiptHeader newReceiptHeader = new ReceiptHeader();
+            Receipt newReceipt = new Receipt();
 
-            _mapper.Map(receiptHeaderDTO, newReceiptHeader);
+            _mapper.Map(receiptDTO, newReceipt);
 
-            if(receiptHeaderDTO.CustomerName != null)
+            if(receiptDTO.CustomerName != null)
             {
-                Customer customer = await _customerRepository.GetCustomerByName(receiptHeaderDTO.CustomerName);
-                newReceiptHeader.Customer = customer;
+                Customer customer = await _customerRepository.GetCustomerByName(receiptDTO.CustomerName);
+                newReceipt.Customer = customer;
             }
             else
             {
                 Customer customer = new Customer();
-                newReceiptHeader.Customer = customer;
+                newReceipt.Customer = customer;
             }
 
-            return await _receiptHeaderRepository.CreateReceiptHeader(newReceiptHeader);         
+            return await _receiptRepository.CreateReceipt(newReceipt);         
         }
 
-        public async Task<bool> DeleteReceiptHeader(int id)
+        public async Task<bool> DeleteReceipt(int id)
         {
-            ReceiptHeader receiptHeaderToDelete = await _receiptHeaderRepository.GetReceiptHeaderById(id);
-            return await _receiptHeaderRepository.DeleteReceiptHeader(receiptHeaderToDelete);
+            Receipt receiptToDelete = await _receiptRepository.GetReceiptById(id);
+            return await _receiptRepository.DeleteReceipt(receiptToDelete);
         }
 
-        public async Task<IEnumerable<ReceiptHeader>> GetAllReceiptHeaders()
+        public async Task<IEnumerable<Receipt>> GetAllReceipts()
         {
-            return await _receiptHeaderRepository.GetAllReceiptHeaders();
+            return await _receiptRepository.GetAllReceipts();
         }
 
-        public async Task<bool> UpdateReceiptHeader(ReceiptHeaderDTO receiptHeaderDTO)
+        public async Task<bool> UpdateReceipt(ReceiptDTO receiptDTO)
         {
-            ReceiptHeader receiptHeaderToUpdate = await _receiptHeaderRepository.GetReceiptHeaderById(receiptHeaderDTO.Id);
+            Receipt receiptToUpdate = await _receiptRepository.GetReceiptById(receiptDTO.Id);
 
-            _mapper.Map(receiptHeaderDTO, receiptHeaderToUpdate);
+            _mapper.Map(receiptDTO, receiptToUpdate);
 
-            if(receiptHeaderDTO.CustomerName != null)
+            if(receiptDTO.CustomerName != null)
             {
-                Customer customer = await _customerRepository.GetCustomerByName(receiptHeaderDTO.CustomerName);
-                receiptHeaderToUpdate.Customer = customer;
+                Customer customer = await _customerRepository.GetCustomerByName(receiptDTO.CustomerName);
+                receiptToUpdate.Customer = customer;
             }
             else
             {
                 Customer customer = new Customer();
-                receiptHeaderToUpdate.Customer = customer;
+                receiptToUpdate.Customer = customer;
             }
 
-            return await _receiptHeaderRepository.UpdateReceiptHeader(receiptHeaderToUpdate);       
+            return await _receiptRepository.UpdateReceipt(receiptToUpdate);       
         }
     }
 }

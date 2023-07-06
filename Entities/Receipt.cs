@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace POS_Blagajna_Backend.Entities
 {
-    public class ReceiptHeader
+    public class Receipt
     {
         public int Id { get; set; }
         public DateTime Date { get; set; } = DateTime.UtcNow;

@@ -16,8 +16,8 @@ namespace POS_Blagajna_Backend.Helpers
             CreateMap<Customer, CustomerDTO>();
             CreateMap<CustomerDTO, Customer>();
 
-            CreateMap<ReceiptHeader, ReceiptHeaderDTO>();
-            CreateMap<ReceiptHeaderDTO, ReceiptHeader>();
+            CreateMap<Receipt, ReceiptDTO>();
+            CreateMap<ReceiptDTO, Receipt>();
         }
     }
 }

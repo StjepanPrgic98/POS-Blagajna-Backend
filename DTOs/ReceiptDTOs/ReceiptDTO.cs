@@ -6,7 +6,7 @@ using POS_Blagajna_Backend.DTOs.CustomerDTOs;
 
 namespace POS_Blagajna_Backend.DTOs.ReceiptHeaderDTOs
 {
-    public class ReceiptHeaderDTO
+    public class ReceiptDTO
     {
         public int Id { get; set; }
         public string Note { get; set; }
