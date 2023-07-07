@@ -15,5 +15,6 @@ namespace POS_Blagajna_Backend.Interfaces.RepositoryInterfaces
 
         Task<Product> GetProductById(int id);
         Task<Product> GetProductByName(string name);
+        Task<Product> GetProductByCode(int code);
     }
 }

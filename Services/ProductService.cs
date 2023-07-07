@@ -24,6 +24,8 @@ namespace POS_Blagajna_Backend.Services
         {
             Product newProduct = new Product();
 
+            if(await _productRepository.GetProductByCode(productDTO.Code) != null){return false;}
+
             _mapper.Map(productDTO, newProduct);
             
             return await _productRepository.CreateProduct(newProduct);
