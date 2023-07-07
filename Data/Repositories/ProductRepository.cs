@@ -29,7 +29,9 @@ namespace POS_Blagajna_Backend.Data.Repositories
 
         public async Task<IEnumerable<Product>> GetAllProducts()
         {
-            return await _context.Products.ToListAsync();
+            return await _context.Products
+            .OrderBy(x => x.Code)
+            .ToListAsync();
         }
 
         public async Task<bool> UpdateProduct(Product product)

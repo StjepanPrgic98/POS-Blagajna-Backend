@@ -83,6 +83,19 @@ namespace POS_Blagajna_Backend.Controllers
             }
         }
 
+        [HttpGet("{name}")]
+        public async Task<ActionResult<Product>> GetProductByName(string name)
+        {
+            try
+            {
+                return Ok(await _productService.GetProductByName(name));
+            }
+            catch(Exception ex)
+            {
+                return BadRequest($"Could not get product with given name! \n {ex}");
+            }
+        }
+
         [HttpGet("name/{name}")]
         public async Task<ActionResult<IEnumerable<Product>>> GetProductsThatContainName(string name)
         {

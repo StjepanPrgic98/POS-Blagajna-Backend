@@ -59,5 +59,10 @@ namespace POS_Blagajna_Backend.Services
         {
             return await _productRepository.GetProductsThatContainName(name);
         }
+
+        public async Task<Product> GetProductByName(string name)
+        {
+            return await _productRepository.GetProductByName(name);
+        }
     }
 }
