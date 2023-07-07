@@ -19,6 +19,17 @@ builder.Services.AddDbContext<DataContext>(opt =>
     opt.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
 
+builder.Services.AddCors(options =>
+    {
+        options.AddPolicy("AllowAllHeadersAndMethods",
+            builder =>
+            {
+                builder.AllowAnyOrigin()
+                       .AllowAnyHeader()
+                       .AllowAnyMethod();
+            });
+    });
+
 builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
 builder.Services.AddScoped<IEmployeeService, EmployeeService>();
 
@@ -37,6 +48,8 @@ builder.Services.AddScoped<IReceiptItemService, ReceiptItemService>();
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 var app = builder.Build();
+
+app.UseCors("AllowAllHeadersAndMethods");
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
