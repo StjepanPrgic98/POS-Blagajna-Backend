@@ -52,5 +52,15 @@ namespace POS_Blagajna_Backend.Data.Repositories
         {
             return await _context.Products.FirstOrDefaultAsync(x => x.Code == code);
         }
+
+        public async Task<IEnumerable<Product>> GetProductsThatContainCode(int code)
+        {
+            return await _context.Products.Where(x => x.Code.ToString().Contains(code.ToString())).ToListAsync();
+        }
+
+        public async Task<IEnumerable<Product>> GetProductsThatContainName(string name)
+        {
+            return await _context.Products.Where(x => x.Name.ToLower().Contains(name.ToLower())).ToListAsync();
+        }
     }
 }

@@ -50,5 +50,14 @@ namespace POS_Blagajna_Backend.Services
 
             return await _productRepository.UpdateProduct(productToUpdate);
         }
+
+        public async Task<IEnumerable<Product>> GetProductsThatContainCode(int code)
+        {
+            return await _productRepository.GetProductsThatContainCode(code);
+        }
+        public async Task<IEnumerable<Product>> GetProductsThatContainName(string name)
+        {
+            return await _productRepository.GetProductsThatContainName(name);
+        }
     }
 }

@@ -13,5 +13,7 @@ namespace POS_Blagajna_Backend.Interfaces.ServiceInterfaces
         Task<bool> CreateProduct(ProductDTO productDTO);
         Task<bool> UpdateProduct(ProductDTO productDTO);
         Task<bool> DeleteProduct(int id);
+        Task<IEnumerable<Product>> GetProductsThatContainCode(int code);
+        Task<IEnumerable<Product>> GetProductsThatContainName(string name);
     }
 }

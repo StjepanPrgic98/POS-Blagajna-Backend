@@ -69,5 +69,31 @@ namespace POS_Blagajna_Backend.Controllers
                 return BadRequest($"Could not delete product! \n {ex}");
             }
         }
+
+        [HttpGet("code/{code}")]
+        public async Task<ActionResult<IEnumerable<Product>>> GetProductsThatContainCode(int code)
+        {
+            try
+            {
+                return Ok(await _productService.GetProductsThatContainCode(code));
+            }
+            catch(Exception ex)
+            {
+                return BadRequest($"Could not get products that contain code! \n {ex}");
+            }
+        }
+
+        [HttpGet("name/{name}")]
+        public async Task<ActionResult<IEnumerable<Product>>> GetProductsThatContainName(string name)
+        {
+            try
+            {
+                return Ok(await _productService.GetProductsThatContainName(name));
+            }
+            catch(Exception ex)
+            {
+                return BadRequest($"Could not get product that contain name! \n {ex}");
+            }
+        }
     }
 }
