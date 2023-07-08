@@ -8,6 +8,7 @@ namespace POS_Blagajna_Backend.Entities
     public class Receipt
     {
         public int Id { get; set; }
+        public int Number { get; set; }
         public DateTime Date { get; set; } = DateTime.UtcNow;
         public string Note { get; set; }
         public Customer Customer { get; set; }

@@ -10,6 +10,7 @@ namespace POS_Blagajna_Backend.DTOs.ReceiptHeaderDTOs
     public class ReceiptDTO
     {
         public int Id { get; set; }
+        public int Number { get; set; }
         public string Note { get; set; }
         public string CustomerName { get; set; }
         public List<ReceiptItemDTO> ReceiptItems { get; set; }
