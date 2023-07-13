@@ -47,5 +47,15 @@ namespace POS_Blagajna_Backend.Services
 
             return await _customerRepository.UpdateCustomer(customerToUpdate);
         }
+
+        public async Task<Customer> GetCustomerByName(string name)
+        {
+            return await _customerRepository.GetCustomerByName(name);
+        }
+
+        public async Task<IEnumerable<Customer>> GetCustomersThatContainsName(string name)
+        {
+            return await _customerRepository.GetCustomersThatContainsName(name);
+        }
     }
 }

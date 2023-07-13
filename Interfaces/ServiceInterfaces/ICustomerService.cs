@@ -13,5 +13,8 @@ namespace POS_Blagajna_Backend.Interfaces.ServiceInterfaces
         Task<bool> CreateCustomer(CustomerDTO customerDTO);
         Task<bool> UpdateCustomer(CustomerDTO customerDTO);
         Task<bool> DeleteCustomer(int id);
+
+        Task<Customer> GetCustomerByName(string name);
+        Task<IEnumerable<Customer>> GetCustomersThatContainsName(string name);
     }
 }

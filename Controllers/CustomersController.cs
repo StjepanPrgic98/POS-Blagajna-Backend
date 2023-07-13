@@ -64,5 +64,31 @@ namespace POS_Blagajna_Backend.Controllers
                 return BadRequest($"Could not delete customer! \n {ex}");
             }
         }
+
+        [HttpGet("{name}")]
+        public async Task<ActionResult<Customer>> GetCustomerByName(string name)
+        {
+            try
+            {
+                return Ok(await _customerService.GetCustomerByName(name));
+            }
+            catch(Exception ex)
+            {
+                return BadRequest($"Could not get customer by given name! \n {ex}");
+            }
+        }
+
+        [HttpGet("contains/{name}")]
+        public async Task<ActionResult<IEnumerable<Customer>>> GetCustomersThatContainsName(string name)
+        {
+            try
+            {
+                return Ok(await _customerService.GetCustomersThatContainsName(name));
+            }
+            catch(Exception ex)
+            {
+                return BadRequest($"Could not get customer by given name! \n {ex}");
+            }
+        }
     }
 }

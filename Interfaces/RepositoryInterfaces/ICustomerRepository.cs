@@ -14,6 +14,7 @@ namespace POS_Blagajna_Backend.Interfaces.RepositoryInterfaces
         Task<bool> DeleteCustomer(Customer customer);
 
         Task<Customer> GetCustomerById(int id);
-        Task<Customer> GetCustomerByName(string customerName);
+        Task<Customer> GetCustomerByName(string name);
+        Task<IEnumerable<Customer>> GetCustomersThatContainsName(string name);
     }
 }
