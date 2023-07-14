@@ -14,5 +14,6 @@ namespace POS_Blagajna_Backend.Interfaces.RepositoryInterfaces
         Task<bool> DeleteReceipt(Receipt receipt);
 
         Task<Receipt> GetReceiptById(int id);
+        Task<int> GetLatestReceiptNumber();
     }
 }

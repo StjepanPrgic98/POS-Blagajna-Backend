@@ -13,5 +13,7 @@ namespace POS_Blagajna_Backend.Interfaces.ServiceInterfaces
         Task<bool> CreateReceipt(ReceiptDTO receiptDTO);
         Task<bool> UpdateReceipt(ReceiptDTO receiptDTO);
         Task<bool> DeleteReceipt(int id);
+        
+        Task<int> GetNewReceiptNumber();
     }
 }

@@ -60,18 +60,6 @@ namespace POS_Blagajna_Backend.Services
                 _mapper.Map(receiptItemDTO, newReceiptItem);
                 
                 newReceiptItem.Product = product;
-                newReceiptItem.Price = newReceiptItem.Product.Price * newReceiptItem.Quantity;
-
-                if(newReceiptItem.DiscountPercentage == 0)
-                {
-                    newReceiptItem.DiscountAmmount = 0;
-                    newReceiptItem.TotalPrice = newReceiptItem.Price;
-                }
-                else
-                {
-                    newReceiptItem.DiscountAmmount = (newReceiptItem.Price * newReceiptItem.DiscountPercentage) / 100;
-                    newReceiptItem.TotalPrice = newReceiptItem.Price - newReceiptItem.DiscountAmmount;
-                }
                 
                 newReceiptItems.Add(newReceiptItem);
             }

@@ -68,5 +68,18 @@ namespace POS_Blagajna_Backend.Controllers
                  return BadRequest($"Could not delete receipt! \n {ex}");
             }
         }
+
+        [HttpGet("newReceiptNumber")]
+        public async Task<ActionResult<int>> GetNewReceiptNumber()
+        {
+            try
+            {
+                return await _receiptService.GetNewReceiptNumber();
+            }
+            catch(Exception ex)
+            {
+                 return BadRequest($"Could not get new receipt number! \n {ex}");
+            }
+        }
     }
 }

@@ -33,16 +33,9 @@ namespace POS_Blagajna_Backend.Services
 
             _mapper.Map(receiptDTO, newReceipt);
 
-            if(receiptDTO.CustomerName != null)
-            {
-                Customer customer = await _customerRepository.GetCustomerByName(receiptDTO.CustomerName);
-                newReceipt.Customer = customer;
-            }
-            else
-            {
-                Customer customer = new Customer();
-                newReceipt.Customer = customer;
-            }
+            Customer customer = await _customerRepository.GetCustomerByName(receiptDTO.CustomerName);
+            newReceipt.Customer = customer;
+            
 
             newReceipt.ReceiptItems = receiptItems;
 
@@ -78,6 +71,11 @@ namespace POS_Blagajna_Backend.Services
             }
 
             return await _receiptRepository.UpdateReceipt(receiptToUpdate);       
+        }
+
+        public async Task<int> GetNewReceiptNumber()
+        {
+            return await _receiptRepository.GetLatestReceiptNumber() + 1;
         }
     }
 }

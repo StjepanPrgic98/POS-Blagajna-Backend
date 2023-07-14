@@ -46,5 +46,10 @@ namespace POS_Blagajna_Backend.Data.Repositories
         {
             return await _context.Receipts.FirstOrDefaultAsync(x => x.Id == id);
         }
+
+        public async Task<int> GetLatestReceiptNumber()
+        {
+            return await _context.Receipts.MaxAsync(x => x.Number);
+        }
     }
 }
