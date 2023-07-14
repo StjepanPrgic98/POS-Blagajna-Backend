@@ -64,5 +64,6 @@ namespace POS_Blagajna_Backend.Services
         {
             return await _productRepository.GetProductByName(name);
         }
+
     }
 }

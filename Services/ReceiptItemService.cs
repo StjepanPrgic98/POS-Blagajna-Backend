@@ -15,8 +15,12 @@ namespace POS_Blagajna_Backend.Services
         private readonly IReceiptItemRepository _receiptItemsRepository;
         private readonly IProductRepository _productRepository;
         private readonly IMapper _mapper;
-        public ReceiptItemService(IReceiptItemRepository receiptItemsRepository, IProductRepository productRepository, IMapper mapper)
+        private readonly IProductService _productService;
+        public ReceiptItemService(IReceiptItemRepository receiptItemsRepository, IProductRepository productRepository,
+
+         IMapper mapper, IProductService productService)
         {
+            _productService = productService;
             _mapper = mapper;
             _productRepository = productRepository;
             _receiptItemsRepository = receiptItemsRepository;       
@@ -60,6 +64,8 @@ namespace POS_Blagajna_Backend.Services
                 _mapper.Map(receiptItemDTO, newReceiptItem);
                 
                 newReceiptItem.Product = product;
+                product.StorageQuantity -= newReceiptItem.Quantity;
+                await _productRepository.UpdateProduct(product);
                 
                 newReceiptItems.Add(newReceiptItem);
             }
