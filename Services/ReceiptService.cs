@@ -88,7 +88,7 @@ namespace POS_Blagajna_Backend.Services
             {
                 Receipts = filteredReceipts,
                 TotalTransactions = filteredReceipts.Count,
-                TotalNetSales = MathF.Round(filteredReceipts.Sum(x => x.ReceiptItems.Sum(y => y.TotalPrice))),
+                TotalNetSales = MathF.Round(filteredReceipts.Sum(x => x.ReceiptItems.Sum(y => y.TotalPrice)) + filteredReceipts.Sum(x => x.ReceiptItems.Sum(y => y.DiscountAmmount))),
                 TotalDiscounts = (float)Math.Round(filteredReceipts.Sum(x => x.ReceiptItems.Sum(y => y.DiscountAmmount)), 2),
                 TotalSales = (float)Math.Round((filteredReceipts.Sum(x => x.ReceiptItems.Sum(y => y.TotalPrice))
                 - filteredReceipts.Sum(x => x.ReceiptItems.Sum(y => y.DiscountAmmount))
