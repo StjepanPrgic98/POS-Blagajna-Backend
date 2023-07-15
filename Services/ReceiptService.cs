@@ -89,20 +89,20 @@ namespace POS_Blagajna_Backend.Services
                 Receipts = filteredReceipts,
                 TotalTransactions = filteredReceipts.Count,
                 TotalNetSales = MathF.Round(filteredReceipts.Sum(x => x.ReceiptItems.Sum(y => y.TotalPrice))),
-                TotalDiscounts = filteredReceipts.Sum(x => x.ReceiptItems.Sum(y => y.DiscountAmmount)),
-                TotalSales = (filteredReceipts.Sum(x => x.ReceiptItems.Sum(y => y.TotalPrice))
+                TotalDiscounts = (float)Math.Round(filteredReceipts.Sum(x => x.ReceiptItems.Sum(y => y.DiscountAmmount)), 2),
+                TotalSales = (float)Math.Round((filteredReceipts.Sum(x => x.ReceiptItems.Sum(y => y.TotalPrice))
                 - filteredReceipts.Sum(x => x.ReceiptItems.Sum(y => y.DiscountAmmount))
-                ),
+                ), 2),
 
-                CashSales = filteredReceipts.Where(x => 
+                CashSales = (float)Math.Round(filteredReceipts.Where(x => 
                 x.Customer != null
                 && x.Customer.Name != null 
-                && x.Customer.Name == "-").Sum(z => z.ReceiptItems.Sum(y => y.TotalPrice)),
+                && x.Customer.Name == "-").Sum(z => z.ReceiptItems.Sum(y => y.TotalPrice)), 2),
 
-                CardSales = filteredReceipts.Where(x => 
+                CardSales = (float)Math.Round(filteredReceipts.Where(x => 
                 x.Customer != null
                 && x.Customer.Name != null
-                && x.Customer.Name != "-").Sum(z => z.ReceiptItems.Sum(y => y.TotalPrice))
+                && x.Customer.Name != "-").Sum(z => z.ReceiptItems.Sum(y => y.TotalPrice)), 2)
             };
 
             return receiptHistoryDTO;
