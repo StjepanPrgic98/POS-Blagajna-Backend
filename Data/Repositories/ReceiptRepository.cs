@@ -1,8 +1,10 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using POS_Blagajna_Backend.DTOs.DateTimeDTOs;
 using POS_Blagajna_Backend.Entities;
 using POS_Blagajna_Backend.Interfaces.RepositoryInterfaces;
 
@@ -50,6 +52,43 @@ namespace POS_Blagajna_Backend.Data.Repositories
         public async Task<int> GetLatestReceiptNumber()
         {
             return await _context.Receipts.MaxAsync(x => x.Number);
+        }
+
+        public async Task<List<Receipt>> GetReceiptsForChosenDate(PurchaseHistoryFiltersDTO purchaseHistoryFiltersDTO, string filterOptions)
+        {
+            if(filterOptions == "day")
+            {
+                return await _context.Receipts
+                    .Include(x => x.Customer)
+                    .Include(x => x.ReceiptItems).ThenInclude(x => x.Product)
+                    .Where(x =>
+                        x.Date.Day == purchaseHistoryFiltersDTO.Day
+                    && x.Date.Month == purchaseHistoryFiltersDTO.Month
+                    && x.Date.Year == purchaseHistoryFiltersDTO.Year
+                    )
+                    .ToListAsync();
+            }
+            else if(filterOptions == "month")
+            {
+                return await _context.Receipts
+                    .Include(x => x.Customer)
+                    .Include(x => x.ReceiptItems).ThenInclude(x => x.Product)
+                    .Where(x =>      
+                    x.Date.Month == purchaseHistoryFiltersDTO.Month
+                    && x.Date.Year == purchaseHistoryFiltersDTO.Year
+                    )
+                    .ToListAsync();
+            }
+            else
+            {
+                return await _context.Receipts
+                    .Include(x => x.Customer)
+                    .Include(x => x.ReceiptItems).ThenInclude(x => x.Product)
+                    .Where(x => x.Date.Year == purchaseHistoryFiltersDTO.Year
+                    )
+                    .ToListAsync();
+            }
+            
         }
     }
 }

@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using POS_Blagajna_Backend.DTOs.DateTimeDTOs;
+using POS_Blagajna_Backend.DTOs.ReceiptDTOs;
 using POS_Blagajna_Backend.DTOs.ReceiptHeaderDTOs;
 using POS_Blagajna_Backend.Entities;
 using POS_Blagajna_Backend.Interfaces.RepositoryInterfaces;
@@ -76,6 +78,34 @@ namespace POS_Blagajna_Backend.Services
         public async Task<int> GetNewReceiptNumber()
         {
             return await _receiptRepository.GetLatestReceiptNumber() + 1;
+        }
+
+        public async Task<ReceiptHistoryDTO> GetReceiptsForChosenDate(PurchaseHistoryFiltersDTO purchaseHistoryFiltersDTO, string filterOptions)
+        {
+            List<Receipt> filteredReceipts = await _receiptRepository.GetReceiptsForChosenDate(purchaseHistoryFiltersDTO, filterOptions);
+            
+            ReceiptHistoryDTO receiptHistoryDTO = new ReceiptHistoryDTO
+            {
+                Receipts = filteredReceipts,
+                TotalTransactions = filteredReceipts.Count,
+                TotalNetSales = MathF.Round(filteredReceipts.Sum(x => x.ReceiptItems.Sum(y => y.TotalPrice))),
+                TotalDiscounts = filteredReceipts.Sum(x => x.ReceiptItems.Sum(y => y.DiscountAmmount)),
+                TotalSales = (filteredReceipts.Sum(x => x.ReceiptItems.Sum(y => y.TotalPrice))
+                - filteredReceipts.Sum(x => x.ReceiptItems.Sum(y => y.DiscountAmmount))
+                ),
+
+                CashSales = filteredReceipts.Where(x => 
+                x.Customer != null
+                && x.Customer.Name != null 
+                && x.Customer.Name == "-").Sum(z => z.ReceiptItems.Sum(y => y.TotalPrice)),
+
+                CardSales = filteredReceipts.Where(x => 
+                x.Customer != null
+                && x.Customer.Name != null
+                && x.Customer.Name != "-").Sum(z => z.ReceiptItems.Sum(y => y.TotalPrice))
+            };
+
+            return receiptHistoryDTO;
         }
     }
 }

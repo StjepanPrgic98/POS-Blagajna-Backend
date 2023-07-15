@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using POS_Blagajna_Backend.DTOs.DateTimeDTOs;
 using POS_Blagajna_Backend.DTOs.ReceiptHeaderDTOs;
 using POS_Blagajna_Backend.Entities;
 using POS_Blagajna_Backend.Interfaces.ServiceInterfaces;
@@ -79,6 +80,19 @@ namespace POS_Blagajna_Backend.Controllers
             catch(Exception ex)
             {
                  return BadRequest($"Could not get new receipt number! \n {ex}");
+            }
+        }
+
+        [HttpPost("purchaseHistory/{filterOptions}")]
+        public async Task<ActionResult<PurchaseHistoryFiltersDTO>> GetReceiptsForChosenDate(PurchaseHistoryFiltersDTO purchaseHistoryFiltersDTO, string filterOptions)
+        {
+            try
+            {
+                return Ok(await _receiptService.GetReceiptsForChosenDate(purchaseHistoryFiltersDTO, filterOptions));
+            }
+            catch(Exception ex)
+            {
+                 return BadRequest($"Could not get new receipts for chosen date! \n {ex}");
             }
         }
     }

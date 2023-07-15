@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using POS_Blagajna_Backend.DTOs.DateTimeDTOs;
 using POS_Blagajna_Backend.Entities;
 
 namespace POS_Blagajna_Backend.Interfaces.RepositoryInterfaces
@@ -15,5 +16,6 @@ namespace POS_Blagajna_Backend.Interfaces.RepositoryInterfaces
 
         Task<Receipt> GetReceiptById(int id);
         Task<int> GetLatestReceiptNumber();
+        Task<List<Receipt>> GetReceiptsForChosenDate(PurchaseHistoryFiltersDTO purchaseHistoryFiltersDTO, string filterOptions);
     }
 }
