@@ -24,6 +24,7 @@ namespace POS_Blagajna_Backend.Data.Repositories
 
         public async Task<bool> DeleteReceipt(Receipt receipt)
         {
+            _context.ReceiptItems.RemoveRange(receipt.ReceiptItems);
             _context.Receipts.Remove(receipt);
             return await _context.SaveChangesAsync() > 0;
         }
@@ -46,7 +47,9 @@ namespace POS_Blagajna_Backend.Data.Repositories
 
         public async Task<Receipt> GetReceiptById(int id)
         {
-            return await _context.Receipts.FirstOrDefaultAsync(x => x.Id == id);
+            return await _context.Receipts
+            .Include(x => x.ReceiptItems)
+            .FirstOrDefaultAsync(x => x.Id == id);
         }
 
         public async Task<int> GetLatestReceiptNumber()
