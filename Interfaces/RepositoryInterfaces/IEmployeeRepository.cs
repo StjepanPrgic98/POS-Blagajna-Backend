@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using POS_Blagajna_Backend.DTOs.EmployeeDTOs;
 using POS_Blagajna_Backend.Entities;
@@ -12,5 +13,8 @@ namespace POS_Blagajna_Backend.Interfaces.RepositoryInterfaces
         Task<bool> DeleteEmplyoee(Employee employee);
 
         Task<Employee> GetEmployeeById(int id);
+
+        Task<bool> Register(Employee employee);
+        Task<EmployeeDTO> Login(RegisterEmployeeDTO registerEmployeeDTO);
     }
 }

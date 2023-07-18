@@ -11,7 +11,8 @@ namespace POS_Blagajna_Backend.Data.Repositories
 {
     public class ProductRepository : BaseRepository, IProductRepository
     {
-        public ProductRepository(DataContext context) : base(context)
+
+        public ProductRepository(DataContext context, IdentityDataContext identityContext) : base(context, identityContext)
         {
         }
 

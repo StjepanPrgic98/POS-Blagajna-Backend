@@ -7,6 +7,7 @@ namespace POS_Blagajna_Backend.Services
 {
     public class EmployeeService : IEmployeeService
     {
+
         private readonly IEmployeeRepository _employeeRepository;
 
         public EmployeeService(IEmployeeRepository employeeRepository)
@@ -14,11 +15,21 @@ namespace POS_Blagajna_Backend.Services
             _employeeRepository = employeeRepository;     
         }
 
+        public Task<EmployeeDTO> Login(RegisterEmployeeDTO registerEmployeeDTO)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<EmployeeDTO> Register(RegisterEmployeeDTO registerEmployeeDTO)
+        {
+            return null;
+        }
+
         public async Task<bool> CreateEmployee(EmployeeDTO employeeDTO)
         {
             Employee newEmployee = new Employee
             {
-                Name = employeeDTO.Name
+                //Name = employeeDTO.Name
             };
 
             return await _employeeRepository.CreateEmployee(newEmployee);
@@ -35,13 +46,14 @@ namespace POS_Blagajna_Backend.Services
             return await _employeeRepository.GetAllEmployees();
         }
 
+
         public async Task<bool> UpdateEmployee(EmployeeDTO employeeDTO)
         {
             Employee employeeToUpdate = await _employeeRepository.GetEmployeeById(employeeDTO.Id);
 
             employeeToUpdate.Name = employeeDTO.Name;
 
-            return await _employeeRepository.UpdateEmployee(employeeToUpdate);
+            return false;
         }
     }
 }

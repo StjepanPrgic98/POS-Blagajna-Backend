@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using POS_Blagajna_Backend.Data;
 using POS_Blagajna_Backend.Data.Repositories;
+using POS_Blagajna_Backend.Interfaces.IdentityInterfaces;
 using POS_Blagajna_Backend.Interfaces.RepositoryInterfaces;
 using POS_Blagajna_Backend.Interfaces.ServiceInterfaces;
 using POS_Blagajna_Backend.Services;
@@ -29,6 +30,9 @@ builder.Services.AddCors(options =>
                        .AllowAnyMethod();
             });
     });
+
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IUserService, UserService>();
 
 builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
 builder.Services.AddScoped<IEmployeeService, EmployeeService>();

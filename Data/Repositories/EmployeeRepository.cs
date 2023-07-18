@@ -7,8 +7,23 @@ namespace POS_Blagajna_Backend.Data.Repositories
 {
     public class EmployeeRepository : BaseRepository, IEmployeeRepository
     {
-        public EmployeeRepository(DataContext context) : base(context)
+       
+
+        public EmployeeRepository(DataContext context, IdentityDataContext identityContext) : base(context, identityContext)
         {
+        }
+
+        public async Task<bool> Register(Employee employee)
+        {
+            _context.Employees.Add(employee);
+            return await _context.SaveChangesAsync() > 0;
+            
+          
+        }
+
+        public Task<EmployeeDTO> Login(RegisterEmployeeDTO registerEmployeeDTO)
+        {
+            throw new NotImplementedException();
         }
 
         public async Task<bool> CreateEmployee(Employee employee)
@@ -39,5 +54,6 @@ namespace POS_Blagajna_Backend.Data.Repositories
         {
             return await _context.Employees.FirstOrDefaultAsync(x => x.Id == id);
         }
+
     }
 }

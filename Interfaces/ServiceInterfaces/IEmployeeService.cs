@@ -13,5 +13,8 @@ namespace POS_Blagajna_Backend.Interfaces.ServiceInterfaces
         Task<bool> CreateEmployee(EmployeeDTO employeeDTO);
         Task<bool> UpdateEmployee(EmployeeDTO employeeDTO);
         Task<bool> DeleteEmplyoee(int id);
+
+        Task<EmployeeDTO> Register(RegisterEmployeeDTO registerEmployeeDTO);
+        Task<EmployeeDTO> Login(RegisterEmployeeDTO registerEmployeeDTO);
     }
 }
