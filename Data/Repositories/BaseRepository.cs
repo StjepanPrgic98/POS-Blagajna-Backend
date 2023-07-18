@@ -8,10 +8,8 @@ namespace POS_Blagajna_Backend.Data.Repositories
     public class BaseRepository
     {
         protected readonly DataContext _context;
-        protected readonly IdentityDataContext _identityContext;
-        public BaseRepository(DataContext context, IdentityDataContext identityContext)
+        public BaseRepository(DataContext context)
         {
-            _identityContext = identityContext;
             _context = context;
         }
     }

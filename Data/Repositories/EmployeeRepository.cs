@@ -7,9 +7,7 @@ namespace POS_Blagajna_Backend.Data.Repositories
 {
     public class EmployeeRepository : BaseRepository, IEmployeeRepository
     {
-       
-
-        public EmployeeRepository(DataContext context, IdentityDataContext identityContext) : base(context, identityContext)
+        public EmployeeRepository(DataContext context) : base(context)
         {
         }
 

@@ -6,7 +6,7 @@ namespace POS_Blagajna_Backend.Data.Repositories
 {
     public class CustomerRepository : BaseRepository, ICustomerRepository
     {
-        public CustomerRepository(DataContext context, IdentityDataContext identityContext) : base(context, identityContext)
+        public CustomerRepository(DataContext context) : base(context)
         {
         }
 

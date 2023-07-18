@@ -12,8 +12,7 @@ namespace POS_Blagajna_Backend.Data.Repositories
 {
     public class ReceiptRepository : BaseRepository, IReceiptRepository
     {
-
-        public ReceiptRepository(DataContext context, IdentityDataContext identityContext) : base(context, identityContext)
+        public ReceiptRepository(DataContext context) : base(context)
         {
         }
 

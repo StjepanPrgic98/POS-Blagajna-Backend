@@ -9,14 +9,14 @@ namespace POS_Blagajna_Backend.Data.Repositories
 {
     public class UserRepository :BaseRepository, IUserRepository
     {
-        public UserRepository(DataContext context, IdentityDataContext identityContext) : base(context, identityContext)
+        public UserRepository(DataContext context) : base(context)
         {
         }
 
         public async Task<bool> Register(AppUser user)
         {
-            _identityContext.Users.Add(user);
-            return await _identityContext.SaveChangesAsync() > 0;
+            _context.Users.Add(user);
+            return await _context.SaveChangesAsync() > 0;
         }
     }
 }
