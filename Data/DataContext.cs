@@ -1,6 +1,8 @@
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using POS_Blagajna_Backend.Entities;
+using POS_Blagajna_Backend.Entities.Identity;
 
 namespace POS_Blagajna_Backend.Data
 {

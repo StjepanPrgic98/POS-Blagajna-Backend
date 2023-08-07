@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 using POS_Blagajna_Backend.DTOs.IdentityDTOs;
 using POS_Blagajna_Backend.Entities.Identity;
 using POS_Blagajna_Backend.Interfaces.IdentityInterfaces;
@@ -17,12 +18,13 @@ namespace POS_Blagajna_Backend.Services
         }
         public async Task<bool> Register(RegisterUserDTO registerUserDTO)
         {
-            AppUser user = new AppUser
+            IdentityUser user = new IdentityUser
             {
-                UserName = registerUserDTO.Username
+                UserName = registerUserDTO.Username,
             };
 
-            return await _userRepository.Register(user);
+
+            return await _userRepository.Register(user, registerUserDTO.Password);
         }
     }
 }

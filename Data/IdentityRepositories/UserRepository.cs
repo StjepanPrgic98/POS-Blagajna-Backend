@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 using POS_Blagajna_Backend.Entities.Identity;
 using POS_Blagajna_Backend.Interfaces.IdentityInterfaces;
 
@@ -9,14 +10,18 @@ namespace POS_Blagajna_Backend.Data.Repositories
 {
     public class UserRepository :BaseRepository, IUserRepository
     {
-        public UserRepository(DataContext context) : base(context)
+        private readonly UserManager<IdentityUser> _userManager;
+        public UserRepository(DataContext context, UserManager<IdentityUser> userManager) : base(context)
         {
+            _userManager = userManager;
         }
 
-        public async Task<bool> Register(AppUser user)
+        public async Task<bool> Register(IdentityUser user, string password)
         {
-            _context.Users.Add(user);
-            return await _context.SaveChangesAsync() > 0;
+            IdentityResult result = await _userManager.CreateAsync(user, password);
+            return result.Succeeded;
         }
+
+        
     }
 }

@@ -1,6 +1,8 @@
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using POS_Blagajna_Backend.Data;
 using POS_Blagajna_Backend.Data.Repositories;
+using POS_Blagajna_Backend.Entities.Identity;
 using POS_Blagajna_Backend.Interfaces.IdentityInterfaces;
 using POS_Blagajna_Backend.Interfaces.RepositoryInterfaces;
 using POS_Blagajna_Backend.Interfaces.ServiceInterfaces;
@@ -15,6 +17,8 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddDataProtection();
+
 builder.Services.AddDbContext<DataContext>(opt => 
 {
     opt.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"));
@@ -28,8 +32,15 @@ builder.Services.AddCors(options =>
                 builder.AllowAnyOrigin()
                        .AllowAnyHeader()
                        .AllowAnyMethod();
-            });
+        });
     });
+
+builder.Services.AddIdentityCore<IdentityUser>(opt => 
+{
+    opt.Password.RequireNonAlphanumeric = false;
+})
+.AddEntityFrameworkStores<DataContext>()
+.AddDefaultTokenProviders();
 
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IUserService, UserService>();

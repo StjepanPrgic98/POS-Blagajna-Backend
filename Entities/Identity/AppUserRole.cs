@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace POS_Blagajna_Backend.Entities.Identity
 {
-    public class AppUserRole : IdentityUserRole<string>
+    public class AppUserRole
     {
         public AppUser User { get; set; }
         public AppRole Role { get; set; }

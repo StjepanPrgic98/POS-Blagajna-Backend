@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace POS_Blagajna_Backend.Entities.Identity
 {
-    public class AppUser : IdentityUser
+    public class AppUser
     {
         public DateTime Created { get; set; }
         public ICollection<AppUserRole> UserRoles { get; set; }
