@@ -12,6 +12,7 @@ namespace POS_Blagajna_Backend.Interfaces.IdentityInterfaces
         Task<bool> Register(IdentityUser user, string password);
 
         Task<IdentityUser> GetUserByUsername(string username);
+        Task<IdentityUser> GetUserByEmail(string email);
         Task<bool> CheckPassword(IdentityUser user, string password);
     }
 }

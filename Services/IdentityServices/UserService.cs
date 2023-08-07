@@ -22,6 +22,7 @@ namespace POS_Blagajna_Backend.Services
             IdentityUser user = new IdentityUser
             {
                 UserName = registerUserDTO.Username,
+                Email = registerUserDTO.Email
             };
 
 
@@ -30,7 +31,7 @@ namespace POS_Blagajna_Backend.Services
 
         public async Task<bool> Login(LoginUserDTO loginUserDTO)
         {
-            IdentityUser user = await _userRepository.GetUserByUsername(loginUserDTO.Username);
+            IdentityUser user = await _userRepository.GetUserByEmail(loginUserDTO.Email);
             
             if(user == null){return false;}
 

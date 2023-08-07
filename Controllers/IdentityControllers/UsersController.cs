@@ -25,7 +25,14 @@ namespace POS_Blagajna_Backend.Controllers.IdentityControllers
         [HttpGet("login")]
         public async Task<ActionResult<bool>> Login(LoginUserDTO loginUserDTO)
         {
-            return await _userService.Login(loginUserDTO);
+            if(await _userService.Login(loginUserDTO))
+            {
+                return Ok("Success");
+            }
+            else
+            {
+                return BadRequest("Could not login user");
+            }
         }
     }
 }

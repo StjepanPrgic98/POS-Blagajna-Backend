@@ -31,5 +31,10 @@ namespace POS_Blagajna_Backend.Data.Repositories
         {
             return await _userManager.CheckPasswordAsync(user, password);
         }
+
+        public async Task<IdentityUser> GetUserByEmail(string email)
+        {
+            return await _userManager.FindByEmailAsync(email);
+        }
     }
 }
