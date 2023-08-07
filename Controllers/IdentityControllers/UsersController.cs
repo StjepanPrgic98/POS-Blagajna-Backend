@@ -17,22 +17,15 @@ namespace POS_Blagajna_Backend.Controllers.IdentityControllers
         }
 
         [HttpPost("register")]
-        public async Task<ActionResult<bool>> Register(RegisterUserDTO registerUserDTO)
+        public async Task<ActionResult<UserDTO>> Register(RegisterUserDTO registerUserDTO)
         {
             return await _userService.Register(registerUserDTO);
         }
 
-        [HttpGet("login")]
-        public async Task<ActionResult<bool>> Login(LoginUserDTO loginUserDTO)
+        [HttpPost("login")]
+        public async Task<ActionResult<UserDTO>> Login(LoginUserDTO loginUserDTO)
         {
-            if(await _userService.Login(loginUserDTO))
-            {
-                return Ok("Success");
-            }
-            else
-            {
-                return BadRequest("Could not login user");
-            }
+            return await _userService.Login(loginUserDTO);
         }
     }
 }

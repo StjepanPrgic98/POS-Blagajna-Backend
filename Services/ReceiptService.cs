@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.AspNetCore.Identity;
 using POS_Blagajna_Backend.DTOs.DateTimeDTOs;
 using POS_Blagajna_Backend.DTOs.ReceiptDTOs;
 using POS_Blagajna_Backend.DTOs.ReceiptHeaderDTOs;
 using POS_Blagajna_Backend.Entities;
+using POS_Blagajna_Backend.Interfaces.IdentityInterfaces;
 using POS_Blagajna_Backend.Interfaces.RepositoryInterfaces;
 using POS_Blagajna_Backend.Interfaces.ServiceInterfaces;
 
@@ -18,8 +20,11 @@ namespace POS_Blagajna_Backend.Services
         private readonly IMapper _mapper;
         private readonly ICustomerRepository _customerRepository;
         private readonly IReceiptItemService _receiptItemService;
-        public ReceiptService(IReceiptRepository receiptRepository, IMapper mapper, ICustomerRepository customerRepository, IReceiptItemService receiptItemService)
+        private readonly IUserRepository _userRepository;
+
+        public ReceiptService(IReceiptRepository receiptRepository, IMapper mapper, ICustomerRepository customerRepository, IReceiptItemService receiptItemService, IUserRepository userRepository)
         {
+            _userRepository = userRepository;
             _receiptRepository = receiptRepository;
             _receiptItemService = receiptItemService;
             _customerRepository = customerRepository;
@@ -37,6 +42,9 @@ namespace POS_Blagajna_Backend.Services
 
             Customer customer = await _customerRepository.GetCustomerByName(receiptDTO.CustomerName);
             newReceipt.Customer = customer;
+
+            IdentityUser employee = await _userRepository.GetUserByUsername(receiptDTO.EmployeeName);
+            newReceipt.Employee = employee;
             
 
             newReceipt.ReceiptItems = receiptItems;
