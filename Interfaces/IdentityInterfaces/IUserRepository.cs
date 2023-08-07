@@ -10,5 +10,8 @@ namespace POS_Blagajna_Backend.Interfaces.IdentityInterfaces
     public interface IUserRepository
     {
         Task<bool> Register(IdentityUser user, string password);
+
+        Task<IdentityUser> GetUserByUsername(string username);
+        Task<bool> CheckPassword(IdentityUser user, string password);
     }
 }

@@ -16,6 +16,7 @@ namespace POS_Blagajna_Backend.Services
         {
             _userRepository = userRepository;     
         }
+
         public async Task<bool> Register(RegisterUserDTO registerUserDTO)
         {
             IdentityUser user = new IdentityUser
@@ -25,6 +26,17 @@ namespace POS_Blagajna_Backend.Services
 
 
             return await _userRepository.Register(user, registerUserDTO.Password);
+        }
+
+        public async Task<bool> Login(LoginUserDTO loginUserDTO)
+        {
+            IdentityUser user = await _userRepository.GetUserByUsername(loginUserDTO.Username);
+            
+            if(user == null){return false;}
+
+            if(!await _userRepository.CheckPassword(user, loginUserDTO.Password)){return false;}
+
+            return true;
         }
     }
 }

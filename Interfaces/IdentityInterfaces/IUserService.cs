@@ -9,5 +9,6 @@ namespace POS_Blagajna_Backend.Interfaces.IdentityInterfaces
     public interface IUserService
     {
         Task<bool> Register(RegisterUserDTO registerUserDTO);
+        Task<bool> Login(LoginUserDTO loginUserDTO);
     }
 }

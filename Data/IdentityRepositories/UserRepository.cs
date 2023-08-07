@@ -22,6 +22,14 @@ namespace POS_Blagajna_Backend.Data.Repositories
             return result.Succeeded;
         }
 
-        
+        public async Task<IdentityUser> GetUserByUsername(string username)
+        {
+            return await _userManager.FindByNameAsync(username);        
+        }
+
+        public async Task<bool> CheckPassword(IdentityUser user, string password)
+        {
+            return await _userManager.CheckPasswordAsync(user, password);
+        }
     }
 }
