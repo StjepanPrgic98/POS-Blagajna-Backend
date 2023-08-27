@@ -65,5 +65,11 @@ namespace POS_Blagajna_Backend.Services
             return await _productRepository.GetProductByName(name);
         }
 
+        public async Task<bool> IncreaseProductQuantity(int id, int quantity)
+        {
+            Product product = await _productRepository.GetProductById(id);
+            product.StorageQuantity += quantity;
+            return await _productRepository.UpdateProduct(product);
+        }
     }
 }

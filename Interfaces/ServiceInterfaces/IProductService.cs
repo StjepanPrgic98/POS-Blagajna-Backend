@@ -17,5 +17,6 @@ namespace POS_Blagajna_Backend.Interfaces.ServiceInterfaces
         Task<Product> GetProductByName(string name);
         Task<IEnumerable<Product>> GetProductsThatContainCode(int code);
         Task<IEnumerable<Product>> GetProductsThatContainName(string name);
+        Task<bool> IncreaseProductQuantity(int id, int quantity);
     }
 }

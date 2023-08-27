@@ -21,9 +21,11 @@ namespace POS_Blagajna_Backend.Services
         private readonly ICustomerRepository _customerRepository;
         private readonly IReceiptItemService _receiptItemService;
         private readonly IUserRepository _userRepository;
+        private readonly IProductService _productService;
 
-        public ReceiptService(IReceiptRepository receiptRepository, IMapper mapper, ICustomerRepository customerRepository, IReceiptItemService receiptItemService, IUserRepository userRepository)
+        public ReceiptService(IReceiptRepository receiptRepository, IMapper mapper, ICustomerRepository customerRepository, IReceiptItemService receiptItemService, IUserRepository userRepository, IProductService productService)
         {
+            _productService = productService;
             _userRepository = userRepository;
             _receiptRepository = receiptRepository;
             _receiptItemService = receiptItemService;
@@ -55,6 +57,12 @@ namespace POS_Blagajna_Backend.Services
         public async Task<bool> DeleteReceipt(int id)
         {
             Receipt receiptToDelete = await _receiptRepository.GetReceiptById(id);
+
+            foreach (var receiptItem in receiptToDelete.ReceiptItems)
+            {
+                await _productService.IncreaseProductQuantity(receiptItem.Product.Id, receiptItem.Quantity);
+            }
+            
             return await _receiptRepository.DeleteReceipt(receiptToDelete);
         }
 
