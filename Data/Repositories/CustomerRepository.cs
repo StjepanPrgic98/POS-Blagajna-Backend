@@ -46,7 +46,10 @@ namespace POS_Blagajna_Backend.Data.Repositories
 
         public async Task<IEnumerable<Customer>> GetCustomersThatContainsName(string name)
         {
-            return await _context.Customers.Where(x => x.Name.ToLower().Contains(name.ToLower())).ToListAsync();
+            return await 
+            _context.Customers.Where(x => x.Name.ToLower().Contains(name.ToLower()))
+            .Take(10)
+            .ToListAsync();
         }
     }
 }
