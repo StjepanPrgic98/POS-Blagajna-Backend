@@ -8,6 +8,6 @@ namespace POS_Blagajna_Backend.Interfaces.ServiceInterfaces
 {
     public interface ITokenService
     {
-        Task<string> GenerateToken(IdentityUser user);
+        string GenerateToken(IdentityUser user);
     }
 }

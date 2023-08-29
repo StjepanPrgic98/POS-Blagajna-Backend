@@ -33,9 +33,12 @@ namespace POS_Blagajna_Backend.Services
 
             await _userRepository.Register(user, registerUserDTO.Password);
 
+            string tokenString = _tokenService.GenerateToken(user);
+
             return new UserDTO
             {
-                Username = user.UserName
+                Username = user.UserName,
+                TokenString = tokenString
             };
         }
 
@@ -43,7 +46,7 @@ namespace POS_Blagajna_Backend.Services
         {
             IdentityUser user = await _userRepository.GetUserByEmail(loginUserDTO.Email);
 
-            string tokenString = await _tokenService.GenerateToken(user);
+            string tokenString = _tokenService.GenerateToken(user);
             
             
             if(user == null){return null;}

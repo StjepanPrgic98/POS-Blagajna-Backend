@@ -20,7 +20,7 @@ namespace POS_Blagajna_Backend.Services
             _configuration = configuration;
         }
 
-        public async Task<string> GenerateToken(IdentityUser user)
+        public string GenerateToken(IdentityUser user)
         {
             List<Claim> claims = new List<Claim>
             {
@@ -34,7 +34,7 @@ namespace POS_Blagajna_Backend.Services
             JwtSecurityToken securityToken = new JwtSecurityToken
             (
                 claims: claims, 
-                expires: DateTime.Now.AddDays(7),
+                expires: DateTime.Now.AddHours(9),
                 issuer: _configuration.GetSection("Jwt:Issuer").Value,
                 audience: _configuration.GetSection("Jwt:Audiance").Value,
                 signingCredentials: credentials
