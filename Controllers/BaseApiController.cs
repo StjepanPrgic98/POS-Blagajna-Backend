@@ -5,6 +5,7 @@ namespace POS_Blagajna_Backend.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    [Authorize]
     public class BaseApiController : ControllerBase
     {
         

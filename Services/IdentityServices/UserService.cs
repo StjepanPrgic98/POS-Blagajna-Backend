@@ -2,19 +2,23 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using POS_Blagajna_Backend.DTOs.IdentityDTOs;
 using POS_Blagajna_Backend.Entities.Identity;
 using POS_Blagajna_Backend.Interfaces.IdentityInterfaces;
+using POS_Blagajna_Backend.Interfaces.ServiceInterfaces;
 
 namespace POS_Blagajna_Backend.Services
 {
     public class UserService : IUserService
     {
         private readonly IUserRepository _userRepository;
-        public UserService(IUserRepository userRepository)
+        private readonly ITokenService _tokenService;
+        public UserService(IUserRepository userRepository, ITokenService tokenService)
         {
+            _tokenService = tokenService;
             _userRepository = userRepository;     
         }
 
@@ -38,12 +42,19 @@ namespace POS_Blagajna_Backend.Services
         public async Task<UserDTO> Login(LoginUserDTO loginUserDTO)
         {
             IdentityUser user = await _userRepository.GetUserByEmail(loginUserDTO.Email);
+
+            string tokenString = await _tokenService.GenerateToken(user);
             
-            if(user == null){return new UserDTO{Username = "User does not exist!"};}
+            
+            if(user == null){return null;}
 
-            if(!await _userRepository.CheckPassword(user, loginUserDTO.Password)){return new UserDTO{Username = "Passwords do not match!"};}
+            if(!await _userRepository.CheckPassword(user, loginUserDTO.Password)){return null;}
 
-            return new UserDTO{Username = user.UserName};
+            return new UserDTO
+            {
+                Username = user.UserName,
+                TokenString = tokenString
+            };
         }
     }
 }
